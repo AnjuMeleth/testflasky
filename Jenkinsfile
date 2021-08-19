@@ -1,32 +1,35 @@
-pipeline{
-	agent{label 'master'}
-	environment {
-        	FLASK_DEBUG=1
-		FLASK_APP="flasky.py"
-		registry = "anjurose/media99" 
-	        registryCredential = 'HubID1' 
-	        dockerImage = '' 
-    	}
-	stages{
-		stage('Checkout'){
-			steps{
-				git branch: 'master', url: 'https://github.com/AnjuMeleth/Media99.git'
-			}
-		}
-    		stage('Setup'){
-      			steps{
-				sh 'chmod +x install.sh'
-        			sh './install.sh'
-      			}
-    		}
-    		stage('Test'){
-      			steps{
-				 sh '''#!/bin/bash
-				     source myprojectenv/bin/activate	
-                		     python -m unittest
-				     '''
-               			}
-   		}
-	}
-}
-			
+---
+- hosts: all
+  become: true
+  vars_files: secret.yaml
+  tasks:
+   - name: apt-update
+     apt:
+      update_cache: yes
+   - name: Install Docker
+     apt:
+      name: docker.io
+      state: present
+   - name: Create new directory
+     file:
+      path: /home/ubuntu/target
+      state: directory
+   - name: Copy the source code to hosts
+     copy: src=./{{ item }} dest=/home/ubuntu/target/
+     with_items:
+        - app
+        - migrations
+        - flasky.py
+        - config.py
+        - boot.sh
+        - data-dev.sqlite
+        - Dockerfile
+        - start.sh  
+   - name: Copy the source code to hosts
+     copy: src=./{{ item }} dest=/home/ubuntu/Deploy/requirements/
+     with_items:
+        - requirements       
+   - name: Build Docker Image
+     command: chdir=/home/ubuntu/target docker build . --build-arg {{FLASK_APP}} --build-arg {{FLASK_CONFIG}} -t anjurose/inclass
+   - name: Run Docker Container
+     command: chdir=/home/ubuntu/target docker run -it -d -p 8085:5000 anjurose/inclass
