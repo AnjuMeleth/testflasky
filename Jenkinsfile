@@ -1,9 +1,7 @@
 pipeline{
 	agent{label 'master'}
 	environment {
-        	FLASK_DEBUG=1
-		FLASK_APP="flasky.py"
-		registry = "anjurose/media99" 
+        	registry = "anjurose/media99" 
 	        registryCredential = 'HubID1' 
 	        dockerImage = '' 
     	}
@@ -25,6 +23,11 @@ pipeline{
 				     source myprojectenv/bin/activate	
                 		     python -m unittest
 				     '''
+               			}
+   		}
+		stage('invoke playbook'){
+      			steps{
+				 ansible-playbook app_playbook.yml --ask-vault-pass
                			}
    		}
 	}
