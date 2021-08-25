@@ -27,7 +27,7 @@ pipeline{
    		}
 		stage('invoke playbook'){
       			steps{
-				 ansible-playbook app_playbook.yml --ask-vault-pass
+				 ansiblePlaybook disableHostKeyChecking: true, playbook: './app_playbook.yml' 
                			}
    		}
 	}
