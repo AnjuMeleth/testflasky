@@ -28,7 +28,9 @@
    - name: Copy the source code to hosts
      copy: src=./{{ item }} dest=/home/ubuntu/Deploy/requirements/
      with_items:
-        - requirements       
+        - requirements 
+   - name: current path
+     command: pwd   
    - name: Build Docker Image
      command: chdir=/home/ubuntu/target docker build . --build-arg {{FLASK_APP}} --build-arg {{FLASK_CONFIG}} -t anjurose/inclass
    - name: Run Docker Container
