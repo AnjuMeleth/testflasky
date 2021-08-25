@@ -1,7 +1,7 @@
 ---
 - hosts: all
   become: true
-  vars_files: secret.yaml
+  vars_files: testsecret.yml
   tasks:
    - name: apt-update
      apt:
