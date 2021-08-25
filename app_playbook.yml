@@ -4,6 +4,8 @@
   become: true
   vars_files:
   - testsecret.yml
+  environment:
+       - "{{ env_vars }}"
   tasks:
    - name: apt-update
      apt:
@@ -43,9 +45,6 @@
      args:
        chdir: "/home/ubuntu/Deploy/"
      command: "{{ item }}"
-     environments:
-       - {{ FLASK_APP }}
-       - {{ FLASK_DEBUG }}
      with_items:
         - chmod +x start.sh
-        - ./start.sh
+        - ./start.sh &

@@ -27,7 +27,7 @@ pipeline{
    		}
 		stage('invoke playbook'){
       			steps{
-				 ansiblePlaybook installation: 'A1', playbook: './app_playbook.yml'
+				 ansiblePlaybook installation: 'A1', playbook: './docker_playbook.yml'
                			}
    		}
 	}
