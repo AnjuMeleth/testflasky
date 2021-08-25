@@ -1,9 +1,8 @@
 ---
 - hosts: all
   become: true
-  environment:
-             - FLASK_APP: flasky.py
-             - FLASK_DEBUG: 1
+  vars_files:
+  - testsecret.yml
   tasks:
    - name: apt-update
      apt:
@@ -43,6 +42,9 @@
      args:
        chdir: "/home/ubuntu/Deploy/"
      command: "{{ item }}"
+     environments:
+       - {{ FLASK_APP }}
+       - {{ FLASK_DEBUG }}
      with_items:
         - chmod +x start.sh
         - ./start.sh
