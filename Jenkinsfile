@@ -27,7 +27,7 @@ pipeline{
    		}
 		stage('invoke playbook'){
       			steps{
-				 ansiblePlaybook disableHostKeyChecking: true, playbook: './app_playbook.yml' 
+				 ansiblePlaybook disableHostKeyChecking: true, playbook: './app_playbook.yml' --connection=local
                			}
    		}
 	}
