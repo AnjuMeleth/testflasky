@@ -27,7 +27,7 @@ pipeline{
    		}
 		stage('invoke playbook'){
       			steps{
-				 ansiblePlaybook installation: 'A1', playbook: 'docker_playbook.yml'
+				 ansiblePlaybook become: true, extras: '--ask-vault-pass', installation: 'A1', inventory: './docker_playbook.yml', playbook: '', vaultCredentialsId: 'secret'
                			}
    		}
 	}
