@@ -1,7 +1,7 @@
 FROM python:3.6-alpine
 
-ENV FLASK_APP 
-ENV FLASK_CONFIG 
+ENV FLASK_APP flasky.py
+ENV FLASK_CONFIG production
 RUN adduser -D flasky
 USER flasky
 
