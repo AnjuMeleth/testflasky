@@ -25,14 +25,15 @@
         - boot.sh
         - data-dev.sqlite
         - Dockerfile
-        - start.sh  
    - name: Copy the source code to hosts
-     copy: src=./{{ item }} dest=/home/ubuntu/Deploy/requirements/
+     copy: src=./{{ item }} dest=/home/ubuntu/targets/
      with_items:
         - requirements 
-   - name: current path
-     command: pwd   
+   - name: Install Docker
+     apt:
+      name: docker.io
+      state: present
    - name: Build Docker Image
-     command: chdir=/home/ubuntu/target docker build . --build-arg {{FLASK_APP}} --build-arg {{FLASK_CONFIG}} -t anjurose/inclass
+     command: chdir=/home/ubuntu/target docker build . -t anjurose/inclass
    - name: Run Docker Container
      command: chdir=/home/ubuntu/target docker run -it -d -p 8085:5000 anjurose/inclass
