@@ -34,6 +34,6 @@
       name: docker.io
       state: present
    - name: Build Docker Image
-     command: chdir=/home/ubuntu/target/ docker build . -t anjurose/inclass
+     command: chdir=/home/ubuntu/target/ sudo docker build . -t anjurose/inclass
    - name: Run Docker Container
-     command: chdir=/home/ubuntu/target/ docker run -it -d -p 8085:5000 anjurose/inclass
+     command: chdir=/home/ubuntu/target/ sudo docker run -it -d -p 8085:5000 anjurose/inclass
