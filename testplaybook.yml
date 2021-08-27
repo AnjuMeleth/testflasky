@@ -39,6 +39,6 @@
         msg:
           - "Provisioning based on YOUR_KEY which is: {{ SECRET_KEY }}"
    - name: Build Docker Image
-     command: chdir=/home/ubuntu/target/ docker build . --build-arg "{{ SECRET_KEY}}" -t anjurose/inclass
+     command: chdir=/home/ubuntu/target/ docker build . -e "{{ SECRET_KEY }}" -t anjurose/inclass
    - name: Run Docker Container
      command: chdir=/home/ubuntu/target/ docker run -d -p 8085:5000 anjurose/inclass
