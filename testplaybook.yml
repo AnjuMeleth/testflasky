@@ -33,7 +33,7 @@
         - requirements 
    - name: Build Docker Image
      become_user: root
-     command: chmod +x ./boot.sh     
+     command: chmod +x /home/ubuntu/target/boot.sh     
    - name: Build Docker Image
      command: chdir=/home/ubuntu/target/ docker build . -t anjurose/inclass
    - name: Run Docker Container
