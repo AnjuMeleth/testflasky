@@ -41,4 +41,4 @@
    - name: Build Docker Image
      command: chdir=/home/ubuntu/target/ docker build . -t anjurose/inclass
    - name: Run Docker Container
-     command: chdir=/home/ubuntu/target/ docker run -itd -e "{{ SECRET_KEY }}" -p 8085:5000 anjurose/inclass
+     command: chdir=/home/ubuntu/target/ docker run -itd -e SECRET_KEY="{{ SECRET_KEY }}" -p 8085:5000 anjurose/inclass
