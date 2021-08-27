@@ -4,6 +4,9 @@
   become_user: root
   vars_files: testsecret.yml
   tasks:
+   - name: apt-update
+     apt:
+      update_cache: yes   
    - name: Install Docker
      apt:
       name: docker.io
