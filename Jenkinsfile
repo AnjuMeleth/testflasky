@@ -27,7 +27,7 @@ pipeline{
    		}
 		stage('invoke playbook'){
       			steps{
-				ansiblePlaybook become: true, extras: '--connection=local', installation: 'A1', playbook: './testplaybook.yml', vaultCredentialsId: 'secret'               			}
+				ansiblePlaybook become: true, extras: '--connection=local', inventory: '/etc/ansible/hosts', installation: 'A1', playbook: './testplaybook.yml', vaultCredentialsId: 'secret'               			}
    		}
 	}
 }
