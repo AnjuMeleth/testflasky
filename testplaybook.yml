@@ -1,7 +1,7 @@
 ---
 - hosts: all
   become: yes
-  become_user: ubuntu
+  become_user: root
   vars_files: testsecret.yml
   tasks:
    - name: Install Docker
@@ -10,10 +10,10 @@
       state: present
    - name: Create new directory
      file:
-      path: /home/ubuntu/target
+      path: /home/target
       state: directory
    - name: Copy the source code to hosts
-     copy: src=./{{ item }} dest=/home/ubuntu/target/
+     copy: src=./{{ item }} dest=/home/target/
      with_items:
         - app
         - migrations
@@ -23,7 +23,7 @@
         - data-dev.sqlite
         - Dockerfile
    - name: Copy the source code to hosts
-     copy: src=./{{ item }} dest=/home/ubuntu/target/
+     copy: src=./{{ item }} dest=/home/target/
      with_items:
         - requirements 
    - name: Install Docker
@@ -31,6 +31,6 @@
       name: docker.io
       state: present
    - name: Build Docker Image
-     command: chdir=/home/ubuntu/target/ docker build . -t anjurose/inclass
+     command: chdir=/home/target/ docker build . -t anjurose/inclass
    - name: Run Docker Container
-     command: chdir=/home/ubuntu/target/ docker run -it -d -p 8085:5000 anjurose/inclass
+     command: chdir=/home/target/ docker run -it -d -p 8085:5000 anjurose/inclass
