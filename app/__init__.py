@@ -43,6 +43,5 @@ def create_app(config_name):
     app.register_blueprint(api_blueprint, url_prefix='/api/v1')
     print("Hello, World!")
     print( app.config['SECRET_KEY'])
-    print( app.config['FLASK_CONFIG'])
 
     return app
