@@ -33,8 +33,12 @@
         - requirements 
    - name: Build Docker Image
      become_user: root
-     command: chmod +x /home/ubuntu/target/boot.sh     
+     command: chmod +x /home/ubuntu/target/boot.sh  
+   - name: Prints two lines of messages, but only if there is an environment value set
+     ansible.builtin.debug:
+        msg:
+          - "Provisioning based on YOUR_KEY which is: {{ SECRET_KEY }}"
    - name: Build Docker Image
-     command: chdir=/home/ubuntu/target/ docker build . --build-arg "{{ SECRET_KEY}} " -t anjurose/inclass
+     command: chdir=/home/ubuntu/target/ docker build . --build-arg "{{ SECRET_KEY}}" -t anjurose/inclass
    - name: Run Docker Container
      command: chdir=/home/ubuntu/target/ docker run -d -p 8085:5000 anjurose/inclass
